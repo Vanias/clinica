@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/app/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Cadastrar Cliente">
+			<p:messages />
+
+			<p:panelGrid columns="2">
+				<h:outputText value="Nome:" />
+				<p:inputText value="#{novoCliente.novo.nome}" required="true" requiredMessage="o campo nome é obrigatório" />
+
+				<h:outputText value="número Cns:" />
+				<p:inputText value="#{novoCliente.novo.numCns}" required="true" requiredMessage="o campo número Cns é obrigatório"/>
+
+				<h:outputText value="Plano de Saúde:" />
+				<p:inputText value="#{novoCliente.novo.planoSaude}" />
+
+				<h:outputText value="Idade:" />
+				<p:inputText value="#{novoCliente.novo.idade}" />
+
+				<h:outputText value="Telefone:" />
+				<p:inputText value="#{novoCliente.novo.telefone}" />
+
+				<h:outputText value="Email:" />
+				<p:inputText value="#{novoCliente.novo.email}" />
+
+				<h:outputText value="Rua:" />
+				<p:inputText value="#{novoCliente.novo.rua}" />
+
+				<h:outputText value="Bairro:" />
+				<p:inputText value="#{novoCliente.novo.bairro}" />
+
+				<h:outputText value="Numero:" />
+				<p:inputText value="#{novoCliente.novo.numero}" />
+
+				<h:outputText value="Cidade:" />
+				<p:inputText value="#{novoCliente.novo.cidade}" />
+
+				<h:outputText value="Estado:" />
+				<p:inputText value="#{novoCliente.novo.estado}" />
+
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{novoCliente.salvarAction}" />
+				<p:commandButton value="Cancelar" ajax="false" action="Listar.jsf"
+					immediate="true" />
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>

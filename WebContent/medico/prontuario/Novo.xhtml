@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Novo Prontuários">
+			<p:messages />
+
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome paciente:" />
+				<p:inputText value="#{novoProntuario.prontuario.paciente.nome}"
+					readonly="true" />
+
+				<h:outputText value="Date:" />
+				<p:calendar value="#{novoProntuario.prontuario.data}"
+					pattern="dd/MM/yyyy" required="true"
+					requiredMessage="Data não informada." />
+
+				<h:outputText value="parecer:" />
+				<p:inputTextarea value="#{novoProntuario.prontuario.parecer}"
+					rows="10" cols="80" autoResize="false" />
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{novoProntuario.salvarAction()}" />
+				<p:commandButton value="Cancelar" ajax="false" action="Listar.jsf"
+					immediate="true" />
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>

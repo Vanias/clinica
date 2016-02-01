@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/medico/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Agendamentos por Médico">
+			<p:messages />
+
+			<p:panel header="Filtros">
+				<h:panelGrid columns="3" id="gridCliente">
+					<h:outputText value="Cliente:" />
+					<p:inputText value="#{listarProntuario.cliente.nome}"
+						readonly="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaCliente.show();" />
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="Buscar" icon="ui-icon-search" ajax="false"
+						action="#{listarProntuario.buscarProntuariosAction()}" />
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="Prontuários">
+				<p:dataTable id="dtAgendamentoMedicos"
+					value="#{listarProntuario.prontuarios}" selectionMode="single"
+					paginator="true" rows="15" var="p"
+					selection="#{listarProntuario.prontuarioSelecionado}"
+					rowKey="#{p.id}" emptyMessage="Nenhum Prontuário encontrado.">
+
+					<p:column headerText="Data">
+						<h:outputText value="#{p.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Parecer">
+						<h:outputText value="#{p.parecerResumido}" />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:commandButton value="Novo"
+							action="#{listarProntuario.novoProntuarioPacienteAction()}"
+							ajax="false" />
+						<p:commandButton value="Editar"
+							action="#{listarProntuario.editarProntuarioAction()}"
+							ajax="false" />
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
+		</p:panel>
+
+		<p:dialog id="dlgCliente" widgetVar="dlgBuscaCliente">
+			<p:dataTable id="dtBuscaCliente" value="#{listarProntuario.clientes}"
+				var="c" rowKey="#{c.id}" selection="#{listarProntuario.cliente}"
+				selectionMode="single" border="1"
+				emptyMessage="Nenhum cliente encontrado." paginator="true" rows="10">
+
+				<p:column headerText="Nome" filterBy="#{c.nome}">
+					<h:outputText value="#{c.nome}" />
+				</p:column>
+
+				<p:column headerText="Num CNS" filterBy="#{c.numCns}">
+					<h:outputText value="#{c.numCns}" />
+				</p:column>
+
+				<p:column headerText="Plano Saúde" filterBy="#{c.planoSaude}">
+					<h:outputText value="#{c.planoSaude}" />
+				</p:column>
+
+				<p:column headerText="Idade">
+					<h:outputText value="#{c.idade}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonClientes" value="Selecionar"
+				update="gridCliente" oncomplete="dlgBuscaCliente.hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

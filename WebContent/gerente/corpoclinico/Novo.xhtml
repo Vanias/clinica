@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Cadastrar Corpo Clínico">
+			<p:messages />
+
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome:" />
+				<p:inputText value="#{novoCorpoClinico.medico.nome}" size="100" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+				<h:outputText value="CRM:" />
+				<p:inputText value="#{novoCorpoClinico.medico.crm}" />
+
+				<h:outputText value="UF CRM:" />
+				<p:inputText value="#{novoCorpoClinico.medico.ufCrm}" />
+
+				<h:outputText value="Especialidade:" />
+				<p:selectOneMenu id="especialidadeCombo"
+					converter="#{converterEspecialidade}"
+					value="#{novoCorpoClinico.medico.especialidade}">
+					<f:selectItems value="#{novoCorpoClinico.especialidades}"
+						var="espec" itemLabel="#{espec.descricao}" itemValue="#{espec}" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Valor da Consulta:" />
+				<p:inputText value="#{novoCorpoClinico.medico.valorConsulta}">
+					<f:convertNumber pattern="#0.00"/>
+				</p:inputText>
+
+				<h:outputText value="Clínica:" />
+				<h:panelGrid columns="2" id="gridClinica" border="0">
+					<p:inputText value="#{novoCorpoClinico.medico.clinica.nome}"
+						readonly="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaClinica.show();" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{novoCorpoClinico.salvarAction}" />
+				<p:commandButton value="Cancelar" ajax="false" action="Listar.jsf"
+					immediate="true" />
+			</f:facet>
+		</p:panel>
+
+		<p:dialog id="dlgClinica" widgetVar="dlgBuscaClinica">
+			<p:dataTable id="dtBuscaClinica" value="#{novoCorpoClinico.clinicas}"
+				var="c" rowKey="#{c.id}"
+				selection="#{novoCorpoClinico.medico.clinica}"
+				selectionMode="single" border="1"
+				emptyMessage="Nenhuma clínica encontrado." paginator="true"
+				rows="10">
+
+				<p:column headerText="Nome" filterBy="#{c.nome}">
+					<h:outputText value="#{c.nome}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonClinicas" value="Selecionar"
+				update="gridClinica" oncomplete="dlgBuscaClinica.hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

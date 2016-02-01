@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:head>
+		<style type="text/css">
+.ui-widget {
+	font-size: 11px;
+}
+</style>
+	</h:head>
+	<h:body>
+		<h:form prependId="false">
+			<p:layout fullPage="true">
+				<p:layoutUnit position="north">
+					<p:panel>
+						<p:panelGrid columns="2">
+							<p:commandLink value="Início"
+								action="#{navigation.principalAction()}" immediate="true"
+								ajax="false" />
+
+							<p:commandLink value="Sair" action="#{navigation.sairAction()}"
+								immediate="true" ajax="false" />
+						</p:panelGrid>
+					</p:panel>
+				</p:layoutUnit>
+				<p:layoutUnit position="west" size="250" header="Menu"
+					resizable="true" minSize="200" maxSize="300">
+					<p:menu style="width: auto;">
+						<p:submenu label="Agenda">
+							<p:menuitem value="Novo agendamento" icon="ui-icon-document"
+								action="#{navigation.novoAgendamentoAction()}" immediate="true"
+								ajax="false" />
+							<p:menuitem value="Listar Agendamentos" icon="ui-icon-document"
+								action="#{navigation.listarAgendamentosAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+						<p:submenu label="Cliente">
+							<p:menuitem value="Novo cliente" icon="ui-icon-document"
+								action="#{navigation.novoClienteAction()}" immediate="true"
+								ajax="false" />
+							<p:menuitem value="Listar Cliente" icon="ui-icon-document"
+								action="#{navigation.listarClienteAction()}" immediate="true"
+								ajax="false" />
+						</p:submenu>
+						<p:submenu label="Corpo Clínico">
+							<p:menuitem value="Novo Corpo Clínico" icon="ui-icon-document"
+								action="#{navigation.novoCorpoClinicoAction()}" immediate="true"
+								ajax="false" />
+							<p:menuitem value="Listar Corpo Clínico" icon="ui-icon-document"
+								action="#{navigation.listarCorpoClinicoAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+						<p:submenu label="Especialidade">
+							<p:menuitem value="Nova Especialidade" icon="ui-icon-document"
+								action="#{navigation.novaEspecialidadeAction()}" ajax="false"
+								immediate="true" update="painelPrincipal" />
+							<p:menuitem value="Listar Corpo Clínico" icon="ui-icon-document"
+								action="#{navigation.listarEspecialidadeAction()}" ajax="false"
+								immediate="true" update="painelPrincipal" />
+						</p:submenu>
+						<p:submenu label="Usuários">
+							<p:menuitem value="Novo Usuários" icon="ui-icon-document"
+								action="#{navigation.novoUsuarioAction()}" immediate="true"
+								ajax="false" />
+							<p:menuitem value="Listar Usuários" icon="ui-icon-document"
+								action="#{navigation.listarUsuariosAction()}" immediate="true"
+								ajax="false" />
+						</p:submenu>
+						<p:submenu label="Relatórios">
+							<p:menuitem value="Faturamento por Médico"
+								icon="ui-icon-document"
+								action="#{navigation.relatorioFaturamentoPorMedicoAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+					</p:menu>
+				</p:layoutUnit>
+				<p:layoutUnit id="painelPrincipal" position="center"
+					header="Principal">
+					<ui:insert name="conteudo" />
+				</p:layoutUnit>
+			</p:layout>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

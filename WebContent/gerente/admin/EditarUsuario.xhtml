@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Novo Usuário">
+			<p:messages />
+			<p:panelGrid columns="2">
+				<h:outputText value="Nome:" />
+				<p:inputText value="#{editarUsuario.usuario.nome}" required="true"
+					requiredMessage="Nome não informado." />
+
+				<h:outputText value="Login:" />
+				<p:inputText value="#{editarUsuario.usuario.usuario}"
+					required="true" requiredMessage="Login não informado."
+					disabled="true" />
+
+				<h:outputText value="Nível:" />
+				<p:selectOneMenu value="#{editarUsuario.usuario.nivel}">
+					<f:selectItem itemValue="A" itemLabel="Atendente" />
+					<f:selectItem itemValue="G" itemLabel="Gerente" />
+					<f:selectItem itemValue="M" itemLabel="Médico" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Senha:" />
+				<p:password value="#{editarUsuario.senha1}" />
+
+				<h:outputText value="Confirme a senha" />
+				<p:password value="#{editarUsuario.senha2}" />
+			</p:panelGrid>
+
+			<p:panelGrid columns="3" id="gridMedico">
+				<h:outputText value="Médico:" />
+				<p:inputText value="#{editarUsuario.usuario.medico.nome}"
+					readonly="true" />
+				<p:commandButton icon="ui-icon-search" type="button"
+					onclick="dlgBuscaMedico.show();" />
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{editarUsuario.salvarUsuario}" />
+				<p:commandButton value="Cancelar" ajax="false"
+					action="ListarUsuarios.jsf" />
+			</f:facet>
+		</p:panel>
+
+		<p:dialog id="dlgMedico" widgetVar="dlgBuscaMedico">
+			<p:dataTable id="dtBuscaMedico" value="#{editarUsuario.corpoClinico}"
+				var="m" rowKey="#{m.id}" selection="#{editarUsuario.usuario.medico}"
+				selectionMode="single" border="1"
+				emptyMessage="Nenhum médico encontrado." paginator="true" rows="10">
+
+				<p:column headerText="Nome" filterBy="#{m.nome}">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="Especialidade"
+					filterBy="#{m.especialidade.descricao}">
+					<h:outputText value="#{m.especialidade.descricao}" />
+				</p:column>
+
+				<p:column headerText="Valor da Consulta">
+					<h:outputText value="#{m.valorConsulta}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonMedicos" value="Selecionar"
+				update="gridMedico" oncomplete="dlgBuscaMedico.hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

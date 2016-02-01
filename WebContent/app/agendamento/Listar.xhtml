@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/app/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Agendamentos">
+			<p:messages />
+
+			<p:panel header="Filtros">
+				<p:panelGrid columns="4">
+					<h:outputText value="Data inicial:" />
+					<p:calendar value="#{listarAgendamentos.dataInicial}" />
+
+					<h:outputText value="Data final:" />
+					<p:calendar value="#{listarAgendamentos.dataFinal}" />
+				</p:panelGrid>
+
+				<p:panelGrid columns="3" id="gridCliente">
+					<h:outputText value="Cliente:" />
+					<p:inputText value="#{listarAgendamentos.cliente.nome}"
+						disabled="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaCliente.show();" />
+				</p:panelGrid>
+				<p:panelGrid columns="3" id="gridMedico">
+					<h:outputText value="Médico:" />
+					<p:inputText value="#{listarAgendamentos.medico.nome}"
+						disabled="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaMedico.show();" />
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="Buscar" icon="ui-icon-search" ajax="false"
+						action="#{listarAgendamentos.buscarAgendamentosAction()}" />
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="Agendamentos">
+				<p:dataTable id="dtAgendamento"
+					value="#{listarAgendamentos.agendamentos}" var="a" rowKey="#{a.id}"
+					selection="#{listarAgendamentos.agendamentoSelecionado}"
+					selectionMode="single" border="1"
+					emptyMessage="Nenhum Agendamento encontrado." paginator="true"
+					rows="15">
+
+					<p:column headerText="Médico">
+						<h:outputText value="#{a.medico.nome}" />
+					</p:column>
+
+					<p:column headerText="Paciente">
+						<h:outputText value="#{a.cliente.nome}" />
+					</p:column>
+
+					<p:column headerText="Data">
+						<h:outputText value="#{a.data}" />
+					</p:column>
+
+					<p:column headerText="Hora">
+						<h:outputText value="#{a.hora}" />
+					</p:column>
+
+					<p:column headerText="Pago">
+						<h:outputText value="#{a.pago}" />
+					</p:column>
+
+					<p:column headerText="Situação">
+						<h:outputText value="#{a.situacaoStr}" />
+					</p:column>
+
+					<f:facet name="footer">
+						<p:commandButton value="Receber"
+							action="#{listarAgendamentos.receberAgendamentoAction()}" />
+						<p:commandButton value="Cancelar"
+							action="#{listarAgendamentos.cancelarAgendamentoAction()}" />
+						<p:commandButton value="Lançar Falta"
+							action="#{listarAgendamentos.lancarFaltaAction()}" />
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
+		</p:panel>
+
+
+		<p:dialog id="dlgCliente" widgetVar="dlgBuscaCliente">
+			<p:dataTable id="dtBuscaCliente"
+				value="#{listarAgendamentos.clientes}" var="c" rowKey="#{c.id}"
+				selection="#{listarAgendamentos.cliente}" selectionMode="single"
+				border="1" emptyMessage="Nenhum cliente encontrado."
+				paginator="true" rows="15">
+
+				<p:column headerText="Nome" filterBy="#{c.nome}">
+					<h:outputText value="#{c.nome}" />
+				</p:column>
+
+				<p:column headerText="Num CNS" filterBy="#{c.numCns}">
+					<h:outputText value="#{c.numCns}" />
+				</p:column>
+
+				<p:column headerText="Plano Saúde" filterBy="#{c.planoSaude}">
+					<h:outputText value="#{c.planoSaude}" />
+				</p:column>
+
+				<p:column headerText="Idade">
+					<h:outputText value="#{c.idade}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonClientes" value="Selecionar"
+				update="gridCliente" oncomplete="dlgBuscaCliente.hide();" />
+		</p:dialog>
+
+		<p:dialog id="dlgMedico" widgetVar="dlgBuscaMedico">
+			<p:dataTable id="dtBuscaFornecedor"
+				value="#{listarAgendamentos.corpoClinico}" var="m" rowKey="#{m.id}"
+				selection="#{listarAgendamentos.medico}" selectionMode="single"
+				border="1" emptyMessage="Nenhum médico encontrado." paginator="true"
+				rows="15">
+
+				<p:column headerText="Nome" filterBy="#{m.nome}">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="Especialidade"
+					filterBy="#{m.especialidade.descricao}">
+					<h:outputText value="#{m.especialidade.descricao}" />
+				</p:column>
+
+				<p:column headerText="Valor da Consulta">
+					<h:outputText value="#{m.valorConsulta}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonMedicos" value="Selecionar"
+				update="gridMedico" oncomplete="dlgBuscaMedico.hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

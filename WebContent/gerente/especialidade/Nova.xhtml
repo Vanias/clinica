@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Nova Especialidade">
+			<p:messages />
+
+			<p:panelGrid columns="2">
+				<h:outputText value="Descrição:" />
+				<p:inputText value="#{novaEspecialidade.especialidade.descricao}"
+					required="true" requiredMessage="Descrição não informada." />
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{novaEspecialidade.salvarEspecialidade}" />
+				<p:commandButton value="Cancelar" ajax="false" action="Listar.jsf" immediate="true"/>
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>

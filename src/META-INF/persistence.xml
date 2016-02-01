@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="ClinicalManagerPU"
+        transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <jta-data-source>java:jboss/ClinicalManagerDS</jta-data-source>
+
+        <class>clinical.bean.Usuario</class>
+        <class>clinical.bean.Especialidade</class>
+        <class>clinical.bean.Medico</class>
+        <class>clinical.bean.MedicoEspecialidade</class>
+        <class>clinical.bean.Cliente</class>
+        <class>clinical.bean.Agendamento</class>
+        <class>clinical.bean.Clinica</class>
+        <class>clinical.bean.Prontuario</class>
+
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.use_sql_comments" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>

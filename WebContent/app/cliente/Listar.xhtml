@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/app/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Cliente(s)">
+			<p:messages></p:messages>
+			<p:dataTable id="tabelaCorpoClinico"
+				value="#{listarCliente.clientes}" selectionMode="single"
+				paginator="true" rows="10" var="m"
+				selection="#{listarCliente.cliSelect}" rowKey="#{m.id}"
+				emptyMessage="Nenhum cliente encontrado.">
+				<p:column headerText="Nome" filterBy="#{m.nome}">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="idade">
+					<h:outputText value="#{m.idade}" />
+				</p:column>
+
+				<p:column headerText="Plano de Saúde">
+					<h:outputText value="#{m.planoSaude}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{m.email}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{m.telefone}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo" icon="ui-icon-document"
+						action="Novo.jsf" />
+					<p:commandButton value="Editar" icon="ui-icon-pencil"
+						action="#{listarCliente.editarAction()}" ajax="false"/>
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

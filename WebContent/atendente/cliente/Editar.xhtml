@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/atendente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Editar Cliente">
+			<p:messages />
+
+			<p:panelGrid columns="4">
+				<h:outputText value="Nome:" />
+				<p:inputText value="#{editarcliente.cliente.nome}" />
+
+				<h:outputText value="número Cns:" />
+				<p:inputText value="#{editarcliente.cliente.numCns}" />
+
+				<h:outputText value="Plano de Saúde:" />
+				<p:inputText value="#{editarcliente.cliente.planoSaude}" />
+
+				<h:outputText value="Idade:" />
+				<p:inputText value="#{editarcliente.cliente.idade}" />
+
+				<h:outputText value="Telefone:" />
+				<p:inputMask value="#{editarcliente.cliente.telefone}"
+					mask="(999)9999-9999" />
+
+				<h:outputText value="Email:" />
+				<p:inputText value="#{editarcliente.cliente.email}" />
+
+				<h:outputText value="Rua:" />
+				<p:inputText value="#{editarcliente.cliente.rua}" />
+
+				<h:outputText value="Bairro:" />
+				<p:inputText value="#{editarcliente.cliente.bairro}" />
+
+				<h:outputText value="Numero:" />
+				<p:inputText value="#{editarcliente.cliente.numero}" />
+
+				<h:outputText value="Cidade:" />
+				<p:inputText value="#{editarcliente.cliente.cidade}" />
+
+				<h:outputText value="Estado:" />
+				<p:inputText value="#{editarcliente.cliente.estado}" />
+
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" ajax="false"
+					action="#{novoCliente.salvarAction}" />
+				<p:commandButton value="Cancelar" ajax="false" action="Listar.jsf"
+					immediate="true" />
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>

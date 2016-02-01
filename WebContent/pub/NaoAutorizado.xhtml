@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:head>
+		<style type="text/css">
+.ui-widget {
+	font-size: 11px;
+}
+
+.divLogin {
+	width: 300px;
+	height: 300px;
+}
+</style>
+	</h:head>
+	<h:body>
+		<h:form>
+			<p:panel header="Segurança">
+				<h:outputText
+					value="Erro de segurança. Não está autorizado a ver esta página." />
+				<f:facet name="footer">
+					<p:commandButton value="Efetuar Login" action="Login.jsf" />
+				</f:facet>
+			</p:panel>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

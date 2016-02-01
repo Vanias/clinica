@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/atendente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Novo Agendamento">
+			<p:messages />
+
+			<p:panelGrid columns="2">
+				<h:outputText value="Cliente:" />
+				<p:inputText value="#{receberAgendamento.agendamento.cliente.nome}"
+					disabled="true" />
+
+				<h:outputText value="Médico:" />
+				<p:inputText value="#{receberAgendamento.agendamento.medico.nome}"
+					disabled="true" />
+
+				<h:outputText value="Data agendamento:" />
+				<p:calendar value="#{receberAgendamento.agendamento.data}"
+					disabled="true" pattern="dd/MM/yyyy" />
+
+				<h:outputText value="Hora agendamento:" />
+				<p:calendar value="#{receberAgendamento.agendamento.hora}"
+					disabled="true" pattern="HH:00" timeOnly="true" />
+
+				<h:outputText value="Valor Pago:" />
+				<p:inputText value="#{receberAgendamento.agendamento.valorPago}" />
+			</p:panelGrid>
+
+			<f:facet name="footer">
+				<p:commandButton value="Receber" ajax="false"
+					action="#{receberAgendamento.receberAction()}" />
+				<p:commandButton value="Cancelar" ajax="false" immediate="true"
+					action="Listar.jsf" />
+			</f:facet>
+		</p:panel>
+	</ui:define>
+</ui:composition>

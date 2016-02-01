@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Especialidades">
+			<p:messages />
+
+			<p:dataTable id="tabelaEspecialidades"
+				value="#{listarEspecialidades.especialidades}"
+				selectionMode="single" paginator="true" rows="10" var="e"
+				selection="#{listarEspecialidades.especialidadeSelecionada}"
+				rowKey="#{e.id}" emptyMessage="Nenhuma especialidade encontrada.">
+				<p:column headerText="ID">
+					<h:outputText value="#{e.id}" />
+				</p:column>
+
+				<p:column headerText="Descrição" filterBy="#{e.descricao}">
+					<h:outputText value="#{e.descricao}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Nova" icon="ui-icon-document"
+						action="Nova.jsf" />
+					<p:commandButton value="Editar" icon="ui-icon-pencil"
+						action="#{listarEspecialidades.editarAction}" />
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

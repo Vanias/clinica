@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/app/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Lista de Usuários">
+			<p:messages />
+
+			<p:dataTable id="tabelaUsuarios" value="#{listarUsuarios.usuarios}"
+				selectionMode="single" paginator="true" rows="10" var="u"
+				selection="#{listarUsuarios.usuarioSelecionado}" rowKey="#{u.id}"
+				emptyMessage="Nenhum usuário.">
+
+				<p:column headerText="Nome" filterBy="#{u.nome}">
+					<h:outputText value="#{u.nome}" />
+				</p:column>
+
+				<p:column headerText="Login" filterBy="#{u.usuario}">
+					<h:outputText value="#{u.usuario}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo" icon="ui-icon-document"
+						action="NovoUsuario.jsf" />
+					<p:commandButton value="Editar" icon="ui-icon-pencil"
+						action="#{listarUsuarios.editarAction}" />
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

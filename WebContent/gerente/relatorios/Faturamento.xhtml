@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Agendamentos" id="panelAgendamentos">
+			<p:messages />
+
+			<p:panel header="Filtros">
+				<h:panelGrid columns="4">
+					<h:outputText value="Data inicial:" />
+					<p:calendar value="#{faturamentoGeral.dataInicial}" />
+
+					<h:outputText value="Data final:" />
+					<p:calendar value="#{faturamentoGeral.dataFinal}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="3" id="gridMedico">
+					<h:outputText value="Médico:" />
+					<p:inputText value="#{faturamentoGeral.medicoSelecionado.nome}"
+						readonly="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaMedico.show();" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="3" id="gridClinica">
+					<h:outputText value="Clínica:" />
+					<p:inputText value="#{faturamentoGeral.clinicaSelecionada.nome}"
+						readonly="true" />
+					<p:commandButton icon="ui-icon-search" type="button"
+						onclick="dlgBuscaClinica.show();" />
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="Buscar" icon="ui-icon-search" ajax="false"
+						action="#{faturamentoGeral.buscarDados()}" />
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="Agendamentos">
+				<p:dataTable id="dtAgendamento"
+					value="#{faturamentoGeral.faturamento}" var="f" rowKey="#{f.data}"
+					border="1" emptyMessage="Nenhum Agendamento encontrado.">
+
+					<p:column headerText="Clínica">
+						<h:outputText value="#{f.clinica}" />
+					</p:column>
+
+					<p:column headerText="Médico">
+						<h:outputText value="#{f.medico}" />
+					</p:column>
+
+					<p:column headerText="Data">
+						<h:outputText value="#{f.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Qtde. pacientes">
+						<div align="right">
+							<h:outputText value="#{f.qtdePacientes}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="Valor total">
+						<div align="right">
+							<h:outputText value="#{f.valor}">
+								<f:convertNumber pattern="#0.00" />
+							</h:outputText>
+						</div>
+					</p:column>
+
+					<p:column headerText="Média">
+						<div align="right">
+							<h:outputText value="#{f.mediaDiaria()}">
+								<f:convertNumber pattern="#0.00" />
+							</h:outputText>
+						</div>
+					</p:column>
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<h:panelGrid columns="6">
+						<h:outputText value="Total Pacientes:" />
+						<p:inputText value="#{faturamentoGeral.quantidadePacientes}"
+							readonly="true" />
+
+						<h:outputText value="Valor Total:" />
+						<p:inputText value="#{faturamentoGeral.valorTotalFaturamento}"
+							readonly="true">
+							<f:convertNumber pattern="#0.00" />
+						</p:inputText>
+					</h:panelGrid>
+				</f:facet>
+			</p:panel>
+		</p:panel>
+
+		<p:commandButton value="Imprimir" type="button" icon="ui-icon-print">
+			<p:printer target="panelAgendamentos" />
+		</p:commandButton>
+
+
+		<p:dialog id="dlgMedico" widgetVar="dlgBuscaMedico">
+			<p:dataTable id="dtBuscaFornecedor"
+				value="#{faturamentoGeral.corpoClinico}" var="m" rowKey="#{m.id}"
+				selection="#{faturamentoGeral.medicoSelecionado}"
+				selectionMode="single" border="1"
+				emptyMessage="Nenhum médico encontrado." paginator="true" rows="15">
+
+				<p:column headerText="Nome" filterBy="#{m.nome}">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="Especialidade"
+					filterBy="#{m.especialidade.descricao}">
+					<h:outputText value="#{m.especialidade.descricao}" />
+				</p:column>
+
+				<p:column headerText="Valor da Consulta">
+					<h:outputText value="#{m.valorConsulta}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonMedicos" value="Selecionar"
+				update="gridMedico" oncomplete="dlgBuscaMedico.hide();" />
+		</p:dialog>
+
+		<p:dialog id="dlgClinica" widgetVar="dlgBuscaClinica">
+			<p:dataTable id="dtBuscaClinica" value="#{faturamentoGeral.clinicas}"
+				var="c" rowKey="#{c.id}"
+				selection="#{faturamentoGeral.clinicaSelecionada}"
+				selectionMode="single" border="1"
+				emptyMessage="Nenhuma clínica encontrado." paginator="true"
+				rows="10">
+
+				<p:column headerText="Nome" filterBy="#{c.nome}">
+					<h:outputText value="#{c.nome}" />
+				</p:column>
+			</p:dataTable>
+
+			<p:commandButton id="submitButtonClinicas" value="Selecionar"
+				update="gridClinica" oncomplete="dlgBuscaClinica.hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Corpo Clínico">
+			<p:dataTable id="tabelaCorpoClinico"
+				value="#{listarCorpoClinico.corpoClinico}" selectionMode="single"
+				paginator="true" rows="10" var="m"
+				selection="#{listarCorpoClinico.medicoSelecionado}" rowKey="#{m.id}"
+				emptyMessage="Nenhum médico encontrado.">
+				<p:column headerText="Nome" filterBy="#{m.nome}">
+					<h:outputText value="#{m.nome}" />
+				</p:column>
+
+				<p:column headerText="CRM">
+					<h:outputText value="#{m.crm}" />
+				</p:column>
+
+				<p:column headerText="UF CRM">
+					<h:outputText value="#{m.ufCrm}" />
+				</p:column>
+
+				<p:column headerText="Especialidade"
+					filterBy="#{m.especialidade.descricao}">
+					<h:outputText value="#{m.especialidade.descricao}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo" icon="ui-icon-document"
+						action="Novo.jsf" />
+					<p:commandButton value="Editar" icon="ui-icon-pencil"
+						action="#{listarCorpoClinico.editarAction}" />
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

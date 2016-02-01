@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/gerente/Principal.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel header="Listar Clínicas">
+			<p:messages />
+
+			<p:dataTable id="tabelaClinica" value="#{listarClinica.clinicas}"
+				selectionMode="single" paginator="true" rows="10" var="c"
+				selection="#{listarClinica.clinicaSelecionada}" rowKey="#{c.id}"
+				emptyMessage="Nenhuma clínica encontrado.">
+				<p:column headerText="Código">
+					<h:outputText value="#{c.id}" />
+				</p:column>
+
+				<p:column headerText="Nome" filterBy="#{c.nome}">
+					<h:outputText value="#{c.nome}" />
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo" icon="ui-icon-document"
+						action="Novo.jsf" />
+					<p:commandButton value="Editar" icon="ui-icon-pencil"
+						action="#{listarClinica.editarAction}" />
+				</f:facet>
+			</p:dataTable>
+		</p:panel>
+	</ui:define>
+</ui:composition>

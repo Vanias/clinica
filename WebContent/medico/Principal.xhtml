@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:head>
+		<style type="text/css">
+.ui-widget {
+	font-size: 11px;
+}
+</style>
+	</h:head>
+	<h:body>
+		<h:form prependId="false">
+			<p:layout fullPage="true">
+				<p:layoutUnit position="north">
+					<p:panel>
+						<h:panelGrid columns="2">
+							<p:commandLink value="Início"
+								action="#{navigation.principalMedicoAction()}" immediate="true"
+								ajax="false" />
+
+							<p:commandLink value="Sair" action="#{navigation.sairAction()}"
+								immediate="true" ajax="false" />
+						</h:panelGrid>
+					</p:panel>
+				</p:layoutUnit>
+				<p:layoutUnit position="west" size="250" header="Menu"
+					resizable="true" minSize="200" maxSize="300">
+					<p:menu style="width: auto;">
+						<p:submenu label="Agendamentos">
+							<p:menuitem value="Visualizar agendamentos"
+								icon="ui-icon-document"
+								action="#{navigation.listarAgendamentosMedicosAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+						<p:submenu label="Prontuário">
+							<p:menuitem value="Gerenciar Prontuários" icon="ui-icon-document"
+								action="#{navigation.gerenciarProntuariosAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+						<p:submenu label="Relatórios">
+							<p:menuitem value="Faturamento por Médico"
+								icon="ui-icon-document"
+								action="#{navigation.relatorioFaturamentoPorMedicoAction()}"
+								immediate="true" ajax="false" />
+						</p:submenu>
+					</p:menu>
+				</p:layoutUnit>
+				<p:layoutUnit id="painelPrincipal" position="center"
+					header="Principal">
+					<ui:insert name="conteudo" />
+				</p:layoutUnit>
+			</p:layout>
+		</h:form>
+	</h:body>
+</f:view>
+</html>
